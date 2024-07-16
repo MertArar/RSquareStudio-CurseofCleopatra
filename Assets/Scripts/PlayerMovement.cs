@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
             
         }
         else
-           rigidbody.MovePosition(rigidbody.position + Vector3.zero * animator.deltaPosition.magnitude);
-        
+           rigidbody.MovePosition(rigidbody.position + Vector3.forward * animator.deltaPosition.magnitude * playerSpeed);
+       
     }
 }
