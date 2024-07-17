@@ -11,14 +11,12 @@ public class PlayerMovement : MonoBehaviour
     public int jumpForce = 3;
     [SerializeField] public float playerSpeed = 2.5f;
     
-    // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.W))
@@ -32,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             animator.SetBool("Jump", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            animator.SetBool("Right", true);
         }
     }
 
@@ -65,6 +67,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
            rigidbody.MovePosition(rigidbody.position + Vector3.forward * animator.deltaPosition.magnitude * playerSpeed);
-       
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Obs")
+        {
+            
+        }
     }
 }
