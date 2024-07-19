@@ -144,9 +144,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-        if (isDead) return; 
+        if (isDead) return;
 
-        if (animator.GetBool("Jump"))
+        else if (animator.GetBool("FallDead"))
+        {
+            rb.MovePosition(rb.position + Vector3.down * animator.deltaPosition.magnitude);
+        }
+        
+        else if (animator.GetBool("Jump"))
         {
             if (isJumpDown)
                 rb.MovePosition(rb.position + new Vector3(0, 0, 0) * animator.deltaPosition.magnitude);
@@ -201,6 +206,18 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(MoveBackwardOnDeath());
         }
     }
+
+    [SerializeField] private GameObject cameraObj;
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("FallDamage"))
+        {
+            cameraObj.transform.parent = null;
+            animator.SetBool("FallDead", true);
+        }
+    }
+
 
     private IEnumerator MoveBackwardOnDeath()
     {
