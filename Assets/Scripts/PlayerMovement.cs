@@ -146,9 +146,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDead) return;
 
-        else if (animator.GetBool("FallDead"))
+        if (animator.GetBool("FallDead"))
         {
             rb.MovePosition(rb.position + Vector3.down * animator.deltaPosition.magnitude);
+        }
+
+        if (animator.GetBool("LeftTripping"))
+        {
+            rb.MovePosition(rb.position + new Vector3(1.5f,0,0) * animator.deltaPosition.magnitude);
+        }
+
+        if (animator.GetBool("RightTripping"))
+        {
+            rb.MovePosition(rb.position + new Vector3(-0.75f,0,0) * animator.deltaPosition.magnitude);
         }
         
         else if (animator.GetBool("Jump"))
@@ -204,6 +214,21 @@ public class PlayerMovement : MonoBehaviour
             collision.collider.enabled = false; 
             isDead = true;
             StartCoroutine(MoveBackwardOnDeath());
+        }
+
+        if (collision.collider.CompareTag("LeftTripping"))
+        {
+            animator.SetBool("LeftTripping", true);
+        }
+        
+        if (collision.collider.CompareTag("RightTripping"))
+        {
+            animator.SetBool("RightTripping", true);
+        }
+
+        if (collision.collider.CompareTag("HitTheLeg"))
+        {
+            animator.SetBool("HitTheLeg", true);
         }
     }
 
