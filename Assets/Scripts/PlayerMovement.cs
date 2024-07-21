@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (animator.GetBool("RightTripping"))
         {
-            rb.MovePosition(rb.position + new Vector3(-0.75f,0,0) * animator.deltaPosition.magnitude);
+            rb.MovePosition(rb.position + new Vector3(-0.35f,0,0) * animator.deltaPosition.magnitude);
         }
         
         else if (animator.GetBool("Jump"))
@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             if (isJumpDown)
                 rb.MovePosition(rb.position + new Vector3(0, 0, 0) * animator.deltaPosition.magnitude);
             else
-                rb.MovePosition(rb.position + new Vector3(0, 1.5f, 0) * animator.deltaPosition.magnitude);
+                rb.MovePosition(rb.position + new Vector3(0, 1.5f, 1.5f) * animator.deltaPosition.magnitude);
         }
         else if (animator.GetBool("Right"))
         {
@@ -219,11 +219,14 @@ public class PlayerMovement : MonoBehaviour
         if (collision.collider.CompareTag("LeftTripping"))
         {
             animator.SetBool("LeftTripping", true);
+            animator.SetBool("Dead", false);
+
         }
         
         if (collision.collider.CompareTag("RightTripping"))
         {
             animator.SetBool("RightTripping", true);
+            animator.SetBool("Dead", false);
         }
 
         if (collision.collider.CompareTag("HitTheLeg"))
