@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove = true;
     private bool Left, Right;
     private bool isDead = false;
+    public float leftTrippingSpeed = 2f;
+    public float rightTrippingSpeed = 2f;
 
     void Start()
     {
@@ -153,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (animator.GetBool("LeftTripping"))
         {
-            rb.MovePosition(rb.position + new Vector3(1.5f,0,0) * animator.deltaPosition.magnitude);
+            rb.MovePosition(rb.position + new Vector3(2f,0,0) * animator.deltaPosition.magnitude);
         }
 
         if (animator.GetBool("RightTripping"))
@@ -220,13 +222,16 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("LeftTripping", true);
             animator.SetBool("Dead", false);
-
+            isDead = true;
+            StartCoroutine(ResetTrippingState("LeftTripping"));
         }
         
         if (collision.collider.CompareTag("RightTripping"))
         {
             animator.SetBool("RightTripping", true);
             animator.SetBool("Dead", false);
+            isDead = true;
+            StartCoroutine(ResetTrippingState("RightTripping"));
         }
 
         if (collision.collider.CompareTag("HitTheLeg"))
@@ -246,6 +251,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private IEnumerator ResetTrippingState(string trippingState)
+    {
+        yield return new WaitForSeconds(1.0f);
+        animator.SetBool(trippingState, false);
+        isDead = false;
+    }
 
     private IEnumerator MoveBackwardOnDeath()
     {
