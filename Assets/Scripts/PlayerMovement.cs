@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public static int currentTile = 0;
     
     private int next_x_pos;
+    public float jumpForward = 1.5f;
     private float speedIncreaseInterval = 15f; 
     private float speedIncreaseAmount = 0.2f; 
     private float maxSpeed = 10f;
@@ -166,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
         else if (animator.GetBool("Jump"))
         {
             if (isJumpDown)
-                rb.MovePosition(rb.position + new Vector3(0, 0, 0) * animator.deltaPosition.magnitude);
+                rb.MovePosition(rb.position + new Vector3(0, 0, 1.5f) * animator.deltaPosition.magnitude);
             else
                 rb.MovePosition(rb.position + new Vector3(0, 1.5f, 1.5f) * animator.deltaPosition.magnitude);
         }
