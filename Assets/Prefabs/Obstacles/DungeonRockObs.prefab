@@ -68,8 +68,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonRockObs
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dde63b391397f47d8805b0494d201b33, type: 3}
+      propertyPath: m_TagString
+      value: Obs
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dde63b391397f47d8805b0494d201b33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3139622725951756334}
   m_SourcePrefab: {fileID: 100100000, guid: dde63b391397f47d8805b0494d201b33, type: 3}
+--- !u!1 &5539993098059288587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dde63b391397f47d8805b0494d201b33, type: 3}
+  m_PrefabInstance: {fileID: 4621655905610345818}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &3139622725951756334
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5539993098059288587}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2975970417961200381, guid: dde63b391397f47d8805b0494d201b33, type: 3}
