@@ -9,6 +9,7 @@ TagManager:
   - LeftTripping
   - HitTheLeg
   - RightTripping
+  - NoLeftRight
   layers:
   - Default
   - TransparentFX

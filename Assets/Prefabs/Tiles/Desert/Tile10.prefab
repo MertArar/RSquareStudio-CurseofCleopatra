@@ -34,6 +34,59 @@ Transform:
   - {fileID: 3665555745172193625}
   m_Father: {fileID: 5152992686357297244}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &632211795683741372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1410413211254228359}
+  - component: {fileID: 8297875183647880757}
+  m_Layer: 0
+  m_Name: NoLeftRight
+  m_TagString: NoLeftRight
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1410413211254228359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632211795683741372}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.06269632, y: 2.8300002, z: 22.25}
+  m_LocalScale: {x: 1, y: 1, z: 0.64923}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2815561960836695255}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8297875183647880757
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632211795683741372}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.6182051, z: 15.756665}
+  m_Center: {x: 0.0000010728836, y: -2.3258972, z: 19.169882}
 --- !u!1 &788711809068217804
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,6 +201,7 @@ Transform:
   - {fileID: 6608578977332201445}
   - {fileID: 5061342722942672503}
   - {fileID: 2777202055634289876}
+  - {fileID: 1410413211254228359}
   m_Father: {fileID: 5152992686357297244}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3042996121981808287
@@ -2398,6 +2452,10 @@ PrefabInstance:
     - target: {fileID: 5072493629623956412, guid: abdecfe2655ed49b9a188e7f682123d4, type: 3}
       propertyPath: m_TagString
       value: FallDamage
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024417514529742047, guid: abdecfe2655ed49b9a188e7f682123d4, type: 3}
+      propertyPath: m_Center.y
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6024417514529742047, guid: abdecfe2655ed49b9a188e7f682123d4, type: 3}
       propertyPath: m_IsTrigger

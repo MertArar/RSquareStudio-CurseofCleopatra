@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float speedIncreaseAmount = 0.2f; 
     private float maxSpeed = 10f;
     private bool canMove = true;
+    private bool canMoveLeftRight = true; // Sağ ve sol hareket kontrolü
     private bool Left, Right;
     private bool isDead = false;
     public float leftTrippingSpeed = 2f;
@@ -47,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Jump", true);
         }
-        else if (Input.GetKeyUp(KeyCode.D) && canMove == true)
+        else if (Input.GetKeyUp(KeyCode.D) && canMove == true && canMoveLeftRight)
         {
             if (!animator.GetBool("Jump") && !animator.GetBool("Slide"))
                 animator.SetBool("Right", true);
@@ -66,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(ToRight(next_x_pos));
 
         }
-        else if (Input.GetKeyUp(KeyCode.A) && canMove == true)
+        else if (Input.GetKeyUp(KeyCode.A) && canMove == true && canMoveLeftRight)
         {
             if (!animator.GetBool("Jump") && !animator.GetBool("Slide"))
                 animator.SetBool("Left", true);
@@ -189,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             float currentSpeed = Mathf.Min(playerSpeed, maxSpeed);
-            rb.MovePosition(rb.position + Vector3.forward * animator.deltaPosition.magnitude * currentSpeed);
+            rb.MovePosition(rb.position + Vector3.forward * animator.deltaPosition.magnitude * playerSpeed);
         }
 
         if (Left)
@@ -249,6 +250,18 @@ public class PlayerMovement : MonoBehaviour
         {
             cameraObj.transform.parent = null;
             animator.SetBool("FallDead", true);
+        }
+        else if (other.CompareTag("NoLeftRight"))
+        {
+            canMoveLeftRight = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("NoLeftRight"))
+        {
+            canMoveLeftRight = true;
         }
     }
 
