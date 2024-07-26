@@ -168,6 +168,12 @@ MonoBehaviour:
   - {fileID: 5583889755892197499, guid: 965dee8b1301b88408878ce8c528ca51, type: 3}
   - {fileID: 3384463257157905182, guid: 611d83cffc2b8f54e8a938fbf27d9c5c, type: 3}
   - {fileID: 2377371254645590777, guid: e7bb7b6c9da9f904c94b8efbc7460060, type: 3}
+  - {fileID: 1788143879945639476, guid: 57fd63d52c7341e4b816ca5e578cd9ad, type: 3}
+  - {fileID: 8131399589085405319, guid: 1c8f3b67ee16a5c4d929c819dba8f3a4, type: 3}
+  - {fileID: 6699246730104361120, guid: 86597fe97d842174297715e17264d2fc, type: 3}
+  - {fileID: 5772810235673849128, guid: c42a4d9ac1e1aea4f967319768d132b4, type: 3}
+  - {fileID: 2456689357789462133, guid: d5c36db3770cb1e4fac45e70b5b54c00, type: 3}
+  - {fileID: 6258584291716451849, guid: d18f347d946abd1479023c0b5a2610ad, type: 3}
   player: {fileID: 1071104763}
   deletionDistance: 200
   sectionLength: 100
@@ -384,7 +390,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0b78b3e08d222e94995e5934ff4e7826, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b78b3e08d222e94995e5934ff4e7826, type: 3}
       propertyPath: m_LocalPosition.y
@@ -392,7 +398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b78b3e08d222e94995e5934ff4e7826, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 67.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b78b3e08d222e94995e5934ff4e7826, type: 3}
       propertyPath: m_LocalRotation.w
@@ -473,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 932af27ec5129a042ad281045b2bc8d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 2
+  playerSpeed: 0.5
   player: {fileID: 1071104761}
   jumpForward: 1.5
   leftTrippingSpeed: 2
