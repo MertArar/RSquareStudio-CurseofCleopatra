@@ -10,16 +10,19 @@ TagManager:
   - HitTheLeg
   - RightTripping
   - NoLeftRight
+  - CoinDetector
+  - Coin
+  - Magnet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Collectables
+  - Magnet
+  - PowerUps
   - 
   - 
   - 
