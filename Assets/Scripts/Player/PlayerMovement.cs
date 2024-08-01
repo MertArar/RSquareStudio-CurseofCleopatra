@@ -8,7 +8,6 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 1.5f;
-    [SerializeField] private GameObject player;
     [SerializeField] private TextMeshProUGUI CoinsText;
     [SerializeField] private GameObject CoinPanel; 
     
@@ -34,17 +33,20 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        gameOver.SetActive(false);
         CoinPanel.SetActive(false);
     }
 
     void Update()
     {
-        if (isDead) return;
+        
 
         if (animator.GetBool("Dead") || animator.GetBool("FallDead") || animator.GetBool("LeftTripping") || animator.GetBool("RightTripping"))
         {
+            
             PlayerPrefs.SetInt("CoinsCollected", CoinsCollected);
             StartCoroutine(waitGameOver());
+            
         }
         
         if (Input.GetKeyUp(KeyCode.Space))
