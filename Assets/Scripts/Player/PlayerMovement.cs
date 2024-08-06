@@ -9,25 +9,38 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 1.5f;
     [SerializeField] private TextMeshProUGUI CoinsText;
-    [SerializeField] private GameObject CoinPanel; 
+    [SerializeField] public float swipeThreshold = 50f;
+    [SerializeField] private GameObject CoinPanel;
+    [SerializeField] private GameObject distancePanel;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject startScreen;
     
     private Animator animator;
     private Rigidbody rb;
-     
+    
     public static int currentTile = 0;
-    public GameObject gameOver;
-    private int CoinsCollected;
-    
-    
     private int next_x_pos;
-    public float jumpForward = 1.5f;
-    private float maxSpeed = 10f;
-    private bool canMove = true;
-    private bool canMoveLeftRight = true; 
+    private float maxSpeed = 8f;
+    private float speedIncreaseInterval = 15f; 
+    private float speedIncreaseAmount = 0.2f; 
+    private int CoinsCollected;
+    public int DistanceCollected;
+    
+    static public bool currentlyMove = false;
     private bool Left, Right;
+    private bool canMove = true;
+    private bool isJumpDown = false;
+    private bool isSlidingUp = false;
+    private bool swipeStarted;
     private bool isDead = false;
-    public float leftTrippingSpeed = 2f;
-    public float rightTrippingSpeed = 2f;
+    private bool canMoveLeftRight = true; 
+
+
+    private Vector2 startPoint;
+    public AudioSource slideFX;
+    public AudioSource jumpFX;
+    public static CollectableControl collectableControl;
+    public GameObject gameOver;
 
     void Start()
     {
@@ -35,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         gameOver.SetActive(false);
         CoinPanel.SetActive(false);
+        distancePanel.SetActive(false);
     }
 
     void Update()
@@ -51,58 +65,93 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            startScreen.SetActive(false);
             animator.SetBool("Run", true);
             CoinPanel.SetActive(true);
-            
+            swipeStarted = false;
+            distancePanel.SetActive(true);
         }
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            animator.SetBool("Slide", true);
-        }
-        else if (Input.GetKeyUp(KeyCode.W))
-        {
-            animator.SetBool("Jump", true);
-        }
-        else if (Input.GetKeyUp(KeyCode.D) && canMove == true && canMoveLeftRight)
-        {
-            if (!animator.GetBool("Jump") && !animator.GetBool("Slide"))
-                animator.SetBool("Right", true);
-            else
-                Right = true;
 
-            if (rb.position.x >= -3 && rb.position.x < -1)
-            {
-                next_x_pos = 0;
-            }
-            else if (rb.position.x >= -1 && rb.position.x < 1)
-            {
-                next_x_pos = 2;
-            }
-
-            StartCoroutine(ToRight(next_x_pos));
-
-        }
-        else if (Input.GetKeyUp(KeyCode.A) && canMove == true && canMoveLeftRight)
+        if (currentlyMove == true)
         {
-            if (!animator.GetBool("Jump") && !animator.GetBool("Slide"))
-                animator.SetBool("Left", true);
-            else
-                Left = true;
-            if (rb.position.x >= 1 && rb.position.x < 3)
+            if (Input.GetMouseButtonDown(0))
             {
-                next_x_pos = 0;
+                swipeStarted = true;
+                startPoint = Input.mousePosition;
             }
-            else if (rb.position.x >= -1 && rb.position.x < 1)
+            else if (Input.GetMouseButtonUp(0))
             {
-                next_x_pos = -2;
+                swipeStarted = false;
+                Vector2 endPoint = Input.mousePosition;
+                float swipeDistance = (endPoint - startPoint).magnitude;
+
+                if (swipeDistance >= swipeThreshold)
+                {
+                    Vector2 swipeDirection = endPoint - startPoint;
+                    swipeDirection.Normalize();
+
+                    if (swipeDirection.x < -0.5f && Mathf.Abs(swipeDirection.y) < 0.5 && canMove == true)
+                    {
+                        if (!animator.GetBool("Jump") && !animator.GetBool("Slide"))
+                            animator.SetBool("Left", true);
+                        else
+                            Left = true;
+                        if (rb.position.x >= 1 && rb.position.x < 3)
+                        {
+                            next_x_pos = 0;
+                        }
+                        else if (rb.position.x >= -1 && rb.position.x < 1)
+                        {
+                            next_x_pos = -2;
                 
-            }
+                        }
+                        StartCoroutine(ToLeft(next_x_pos));
+                    }
+                    else if (swipeDirection.x > 0.5f && Mathf.Abs(swipeDirection.y) < 0.5f && canMove == true)
+                    {
+                        if (!animator.GetBool("Jump") && !animator.GetBool("Slide"))
+                            animator.SetBool("Right", true);
+                        else
+                            Right = true;
 
-            
-            StartCoroutine(ToLeft(next_x_pos));
-            
+                        if (rb.position.x >= -3 && rb.position.x < -1)
+                        {
+                            next_x_pos = 0;
+                        }
+                        else if (rb.position.x >= -1 && rb.position.x < 1)
+                        {
+                            next_x_pos = 2;
+                        }
+
+                        StartCoroutine(ToRight(next_x_pos));
+
+                    }
+                    else if (swipeDirection.y > 0.5f && Mathf.Abs(swipeDirection.x) < 0.5f)
+                    {
+                        rb.position = new Vector3(next_x_pos, transform.position.y, transform.position.z);
+                        animator.SetBool("Slide", false);
+                        animator.SetBool("Left", false);
+                        animator.SetBool("Right", false);
+                        animator.SetBool("Jump", true);
+                        jumpFX.Play();
+                    }
+                    else if (swipeDirection.y < -0.5f && Mathf.Abs(swipeDirection.x) < 0.5f)
+                    {
+                        animator.SetBool("Jump", false);
+                        animator.SetBool("Slide", true);
+                        slideFX.Play();
+                    }
+                }
+            }
         }
     }
+    
+    IEnumerator waitGameOver()
+    {
+        float timer = 1.5f;
+        yield return new WaitForSeconds(timer);
+        gameOver.SetActive(true);
+    } 
     IEnumerator ToLeft(int next_x_pos)
     {
         canMove = false;
@@ -153,9 +202,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool(Name, false);
         isJumpDown = false;
     }
-
-    private bool isJumpDown = false;
-
+    
     void JumpDown()
     {
         isJumpDown = true;
@@ -192,14 +239,20 @@ public class PlayerMovement : MonoBehaviour
             if (rb.position.x < next_x_pos)
                 rb.MovePosition(rb.position + new Vector3(1, 0, 1.5f) * animator.deltaPosition.magnitude);
             else
+            {
+                rb.position = new Vector3(next_x_pos, transform.position.y, transform.position.z);
                 animator.SetBool("Right", false);
+            }
         }
         else if (animator.GetBool("Left"))
         {
             if (rb.position.x > next_x_pos)
                 rb.MovePosition(rb.position + new Vector3(-1, 0, 1.5f) * animator.deltaPosition.magnitude);
             else
+            {
+                rb.position = new Vector3(next_x_pos, transform.position.y, transform.position.z);
                 animator.SetBool("Left", false);
+            }
         }
         
         else
@@ -307,12 +360,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.position = endPos;
-    }
-    
-    IEnumerator waitGameOver()
-    {
-        float timer = 1.5f;
-        yield return new WaitForSeconds(timer);
-        gameOver.SetActive(true);
     }
 }
