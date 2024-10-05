@@ -10,10 +10,13 @@ public class LevelGenerator : MonoBehaviour
     public float sectionLength = 100f;
     public int maxSections = 10;
 
-    public float moveSpeed = 8f;
-    //public int randomIndex;
-    private float speedIncreaseAmount = 0.2f;
-    private float speedIncreaseInterval = 15f;
+    [SerializeField] static public float moveSpeed = 12f;
+    public float maxSpeed = 25f;
+    [SerializeField] private float currentSpeed; 
+
+    private float speedIncreaseAmount = 0.75f;
+    private float speedIncreaseInterval = 25f;
+    private bool accesToMove = false;
 
     private List<GameObject> generatedSections = new List<GameObject>();
 
@@ -21,21 +24,31 @@ public class LevelGenerator : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         GenerateInitialSections();
-        StartCoroutine(IncreaseSpeedRoutine());
+        currentSpeed = moveSpeed;
     }
 
     private void Update()
     {
-        MoveSections();
-        DeleteSectionsBehindPlayer();
-
-        if (generatedSections.Count < maxSections || generatedSections[generatedSections.Count - 1].transform.position.z < player.position.z + deletionDistance)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            GenerateSection();
+            Debug.Log("YÜRÜTÜRLDÜ");
+            accesToMove = true;
+            StartCoroutine(IncreaseSpeedRoutine());
         }
+        if (accesToMove == true)
+        {
+            MoveSections();
+            DeleteSectionsBehindPlayer();
+            if (generatedSections.Count < maxSections || generatedSections[generatedSections.Count - 1].transform.position.z < player.position.z + deletionDistance)
+            {
+                GenerateSection();
+            }
+        }
+
+        
+        currentSpeed = moveSpeed;
     }
 
-    // 1. SECTION OLUŞTUR + RANDOM DEVAM ETTIR
     void GenerateInitialSections()
     {
         Debug.Log("Oluştu.");
@@ -48,8 +61,6 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    // RANDOM SECTION OLUŞTUR
-    // RANDOM SECTION OLUŞTUR
     void GenerateSection()
     {
         int randomIndex = Random.Range(0, sections.Length);
@@ -64,8 +75,6 @@ public class LevelGenerator : MonoBehaviour
         generatedSections.Add(newSection);
     }
 
-
-    // BÖLÜMLERİ HAREKET ETTIR
     void MoveSections()
     {
         foreach (GameObject section in generatedSections)
@@ -73,6 +82,7 @@ public class LevelGenerator : MonoBehaviour
             section.transform.position -= new Vector3(0, 0, moveSpeed * Time.deltaTime);
         }
     }
+
     void DeleteSectionsBehindPlayer()
     {
         for (int i = 0; i < generatedSections.Count; i++)
@@ -92,6 +102,11 @@ public class LevelGenerator : MonoBehaviour
         {
             yield return new WaitForSeconds(speedIncreaseInterval);
             moveSpeed += speedIncreaseAmount;
+
+            if (moveSpeed > maxSpeed)
+            {
+                moveSpeed = maxSpeed;
+            }
         }
     }
 }

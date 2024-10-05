@@ -89,6 +89,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f0d1638f97d4e4ad9b83a6e6458d4928, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5819557094000481520}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f0d1638f97d4e4ad9b83a6e6458d4928, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7063243636233211329}
   m_SourcePrefab: {fileID: 100100000, guid: f0d1638f97d4e4ad9b83a6e6458d4928, type: 3}
 --- !u!1 &120229109420951214 stripped
 GameObject:
@@ -110,12 +113,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4436333, y: 11.379222, z: 20.13873}
-  m_Center: {x: 0.72181666, y: 0, z: 0.0043587685}
+  m_Size: {x: 1.4436332, y: 16.990118, z: 26.299551}
+  m_Center: {x: 0.7218166, y: -0.077386945, z: -0.044688582}
 --- !u!114 &5663464921736493282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,3 +146,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinSound: {fileID: 8300000, guid: b72c9e69092a2fb44a3ffc6a6ca55f25, type: 3}
   t: -1
+--- !u!54 &-7063243636233211329
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120229109420951214}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -342,7 +342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3830795391255051578, guid: 0b78b3e08d222e94995e5934ff4e7826, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3882815353823017779, guid: 0b78b3e08d222e94995e5934ff4e7826, type: 3}
       propertyPath: m_Layer
@@ -505,10 +505,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 2
+  CoinsText: {fileID: 0}
+  swipeThreshold: 50
+  CoinPanel: {fileID: 0}
+  distancePanel: {fileID: 0}
   player: {fileID: 5166420394349921498}
-  jumpForward: 1.5
-  leftTrippingSpeed: 2
-  rightTrippingSpeed: 2
+  startScreen: {fileID: 0}
+  DistanceCollected: 0
+  slideFX: {fileID: 0}
+  jumpFX: {fileID: 0}
+  gameOver: {fileID: 0}
   cameraObj: {fileID: 7352413853369061070}
 --- !u!4 &5546498867479961184 stripped
 Transform:

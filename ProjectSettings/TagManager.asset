@@ -13,6 +13,8 @@ TagManager:
   - CoinDetector
   - Coin
   - Magnet
+  - MagnetStick
+  - VaseDrop
   layers:
   - Default
   - TransparentFX
